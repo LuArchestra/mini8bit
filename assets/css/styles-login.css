@@ -5,18 +5,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* Cache tout le contenu au départ */
-body {
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-/* Affiche la page après chargement */
-body.loaded {
-    visibility: visible;
-    opacity: 1;
-}
 
 /* __________Default_Style_Fonts__________ */
 .roboto-light {
