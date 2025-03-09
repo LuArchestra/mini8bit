@@ -1,0 +1,200 @@
+/* Styles généraux */
+* {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* __________Default_Style_Fonts__________ */
+.roboto-light {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500; /* Light */
+    font-style: normal;
+    color: white;
+    font-size: 30px;
+}
+
+.jacquard-12-regular {
+    font-family: "Jacquard 12", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+  }
+  
+.tiny5-regular {
+    font-family: "Tiny5", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+    color: white;
+}
+
+/* __________Log_in__________ */
+/* _____Webpage_Background_____*/
+.login-page {
+    /*background-image: url('img/8bitwallpaper.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: gradient-animation 10s ease infinite;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: 100% 100%; /* Taille de fond pour faire défiler le dégradé */
+    background-color: #ffffff; /* Couleur initiale */
+    animation: backgroundFade 30s ease-in-out infinite;
+}
+/* Définition de l'animation */
+@keyframes backgroundFade {
+    0% {
+        background-color: #ffffff; /* Couleur de départ */
+    }
+    25% {
+        background-color: #668668; /* Couleur intermédiaire 1 */
+    }
+    50% {
+        background-color: #d1bb7e; /* Couleur intermédiaire 2 */
+    }
+    75% {
+        background-color: #9bcfcb; /* Couleur intermédiaire 3 */
+    }
+    100% {
+        background-color: #ffffff; /* Retour à la couleur de départ */
+    }
+}
+
+/* _____Main_container_____ */
+.login-container {
+    background: rgba(71, 71, 71, 0.863); /* Fond blanc semi-transparent */
+    border-radius: 10px; /* Arrondir les bords */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 600px;
+    width: 500px;
+    margin: 10px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+/* _____Sub_Container_(Inputs)_____ */
+#login-form{
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 20px;
+
+}
+/* _____Mini_Images_Container_____ */
+.mini-container {
+    display: flex;
+    flex-direction: line;
+    align-items: center; /* Centre horizontalement */
+    justify-content: center; /* Aligne en haut */
+
+}
+.mini-image {
+    width: 200px; /* Ajuste la taille de l'image */
+    margin-top: 10px; /* Ajoute un petit espace entre le texte et l'image */
+}
+@media (max-width: 375px) { /* Resize the picture if window width <= 375px */
+    .mini-image {
+        width: 150px;
+    }
+}
+
+/* __________Buttons__________ */
+button {
+    background-color: #40b963; /* Couleur initiale */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background 0.5s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+button:hover { /* Hover Effect */
+    background-size: 100% 100%; /* Taille de fond pour faire défiler le dégradé */
+    background-color: #40b963; /* Couleur initiale */
+    animation: backgroundFade2 2s ease-in-out infinite;
+}
+@keyframes backgroundFade2 {
+    0% {
+        background-color: #40b963; /* Couleur de départ */
+    }
+    25% {
+        background-color: #ecdb22; /* Couleur intermédiaire 1 */
+    }
+    50% {
+        background-color: #d17e7e; /* Couleur intermédiaire 2 */
+    }
+    75% {
+        background-color: #9bcfcb; /* Couleur intermédiaire 3 */
+    }
+    100% {
+        background-color: #40b963; /* Retour à la couleur de départ */
+    }
+}
+
+/* Input (and placeholders) */
+input {
+    font-family: "Tiny5";
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+input::placeholder {
+    font-family: "Tiny5", sans-serif;  /* Choisir la police de ton choix */
+    font-size: 16px;  /* Garder une taille constante pour le placeholder */
+    color: #888;  /* Tu peux choisir la couleur que tu préfères */
+}
+
+input:focus {
+    border-color: #3d8535;
+    box-shadow: 0 0 8px rgba(34, 77, 23, 0.5);
+    border-radius: 100px;
+    outline: none;
+}
+
+/* _____Background_moving_images_____ */
+#moving-image-1 {
+    position: absolute;
+    width: 100px; /* Taille de l'image */
+    height: 100px;
+    background: url('/assets/img/8bit-heart.png') no-repeat center/contain; /* Image de fond */
+    top: 50%; /* Position initiale */
+    left: 50%;
+    z-index: -1;
+}
+#moving-image-2 {
+    position: absolute;
+    width: 100px; /* Taille de l'image */
+    height: 100px;
+    background: url('/assets/img/8bit-heart.png') no-repeat center/contain; /* Image de fond */
+    top: 40%; /* Position initiale */
+    left: 50%;
+    z-index: -1;
+}
+#moving-image-3 {
+    position: absolute;
+    width: 200px; /* Taille de l'image */
+    height: 200px;
+    background: url('/assets/img/dvd_logo.png') no-repeat center/contain; /* Image de fond */
+    top: 20%; /* Position initiale */
+    left: 60%;
+    z-index: -1;
+}
+
