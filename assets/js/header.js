@@ -1,10 +1,15 @@
+const basePath = "/mini8bit"; // Adapter à GitHub Pages
+
 document.addEventListener("DOMContentLoaded", async () => {
     const headerElement = document.querySelector("header");
 
-    if (!headerElement) return console.error("⚠️ L'élément <header> est introuvable dans index.html !");
+    if (!headerElement) {
+        console.error("⚠️ L'élément <header> est introuvable !");
+        return;
+    }
 
     try {
-        const response = await fetch(`${basePath}/components/header.html`);
+        const response = await fetch(`${basePath}/components/header.html?nocache=${Date.now()}`);
         if (!response.ok) throw new Error("Erreur lors du chargement du header");
 
         const html = await response.text();
@@ -12,14 +17,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         console.log("✅ Header chargé avec succès !");
 
-        // Attendre un peu avant d'attacher les événements
-        setTimeout(() => {
+        // Vérification que le DOM est bien mis à jour
+        requestAnimationFrame(() => {
             const hamburger = document.getElementById("hamburger");
             const navbar = document.querySelector(".navbar");
 
-            if (!hamburger || !navbar) return console.error("⚠️ Élément manquant après chargement du header");
+            if (!hamburger || !navbar) {
+                console.error("⚠️ Problème : éléments non trouvés après chargement !");
+                return;
+            }
 
-            console.log("✅ Scripts actifs après insertion du header !");
+            console.log("✅ Scripts activés après insertion du header !");
             
             hamburger.addEventListener("click", () => {
                 hamburger.classList.toggle("active");
@@ -27,8 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 navbar.classList.toggle("active");
                 navbar.classList.toggle("hidden");
             });
-
-        }, 500); // Attendre 500ms pour que le DOM soit bien mis à jour
+        });
 
     } catch (error) {
         console.error("❌ Erreur lors du chargement du header :", error);
