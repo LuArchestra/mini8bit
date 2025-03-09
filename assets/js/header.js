@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Chargement de header.html
-    fetch("/components/header.html")
+    fetch("components/header.html")
         .then(response => response.text())
         .then(data => {
             console.log("header.html récupéré :", data);
