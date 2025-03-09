@@ -1,14 +1,12 @@
-document.addEventListener("DOMContentLoaded", async () => {
+window.onload = async () => {
     const headerElement = document.querySelector("header");
 
-    // Vérifie si l'élément header existe
     if (!headerElement) {
         console.error("⚠️ L'élément <header> n'existe pas dans index.html !");
         return;
     }
 
     try {
-        // Chargement du header avec await
         const response = await fetch("./components/header.html");
         if (!response.ok) {
             throw new Error("Erreur lors du chargement du header");
@@ -17,8 +15,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         headerElement.innerHTML = html;
 
         console.log("✅ Header chargé avec succès !");
+        
+        // Charger theme.js après le header
+        const themeScript = document.createElement('script');
+        themeScript.src = './assets/js/theme.js';
+        themeScript.defer = true;
+        document.body.appendChild(themeScript);
 
-        // Sélection des éléments une fois le header inséré
         const hamburger = document.getElementById("hamburger");
         const navbar = document.querySelector(".navbar");
 
@@ -27,9 +30,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        console.log("✅ Script chargé après insertion du header !");
-
-        // Événement de clic pour le menu hamburger
         hamburger.addEventListener("click", () => {
             hamburger.classList.toggle("active");
             hamburger.classList.toggle("inactive");
@@ -41,4 +41,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) {
         console.error("❌ Erreur lors du chargement du header :", error);
     }
-});
+};
