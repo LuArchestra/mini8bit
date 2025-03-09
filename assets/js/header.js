@@ -1,42 +1,34 @@
-const basePath = "/mini8bit"; // Mettre le chemin du projet sur GitHub Pages
-
 document.addEventListener("DOMContentLoaded", async () => {
     const headerElement = document.querySelector("header");
 
-    if (!headerElement) {
-        console.error("⚠️ L'élément <header> est introuvable dans index.html !");
-        return;
-    }
+    if (!headerElement) return console.error("⚠️ L'élément <header> est introuvable dans index.html !");
 
     try {
         const response = await fetch(`${basePath}/components/header.html`);
-        if (!response.ok) {
-            throw new Error("Erreur lors du chargement du header");
-        }
+        if (!response.ok) throw new Error("Erreur lors du chargement du header");
+
         const html = await response.text();
         headerElement.innerHTML = html;
 
         console.log("✅ Header chargé avec succès !");
 
-        // Sélection des éléments après le chargement
-        const hamburger = document.getElementById("hamburger");
-        const navbar = document.querySelector(".navbar");
+        // Attendre un peu avant d'attacher les événements
+        setTimeout(() => {
+            const hamburger = document.getElementById("hamburger");
+            const navbar = document.querySelector(".navbar");
 
-        if (!hamburger || !navbar) {
-            console.error("⚠️ Problème avec l'élément hamburger ou navbar dans le header");
-            return;
-        }
+            if (!hamburger || !navbar) return console.error("⚠️ Élément manquant après chargement du header");
 
-        console.log("✅ Scripts actifs après insertion du header !");
+            console.log("✅ Scripts actifs après insertion du header !");
+            
+            hamburger.addEventListener("click", () => {
+                hamburger.classList.toggle("active");
+                hamburger.classList.toggle("inactive");
+                navbar.classList.toggle("active");
+                navbar.classList.toggle("hidden");
+            });
 
-        // Gestion du menu hamburger
-        hamburger.addEventListener("click", () => {
-            hamburger.classList.toggle("active");
-            hamburger.classList.toggle("inactive");
-
-            navbar.classList.toggle("active");
-            navbar.classList.toggle("hidden");
-        });
+        }, 500); // Attendre 500ms pour que le DOM soit bien mis à jour
 
     } catch (error) {
         console.error("❌ Erreur lors du chargement du header :", error);
