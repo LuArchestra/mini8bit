@@ -1,17 +1,20 @@
-window.onload = async () => {
-    console.log("🌍 Chargement du site...");
-    
+document.addEventListener("DOMContentLoaded", async () => {
     const headerElement = document.querySelector("header");
+    const loadingIndicator = document.getElementById("loading-indicator");
 
+    // Vérifie si l'élément header existe
     if (!headerElement) {
         console.error("⚠️ L'élément <header> n'existe pas dans index.html !");
         return;
     }
 
-    try {
-        // Affichage d'un message temporaire pendant le chargement
-        headerElement.innerHTML = "<p>Chargement du header...</p>";
+    // Affiche l'indicateur de chargement
+    if (loadingIndicator) {
+        loadingIndicator.style.display = "block"; // Afficher le message de chargement
+    }
 
+    try {
+        // Chargement du header avec await
         const response = await fetch("./components/header.html");
         if (!response.ok) {
             throw new Error("Erreur lors du chargement du header");
@@ -20,14 +23,8 @@ window.onload = async () => {
         headerElement.innerHTML = html;
 
         console.log("✅ Header chargé avec succès !");
-        
-        // Charger theme.js après l'ajout du header
-        const themeScript = document.createElement('script');
-        themeScript.src = './assets/js/theme.js';
-        themeScript.defer = true;
-        document.body.appendChild(themeScript);
 
-        // Sélection des éléments du menu une fois le header chargé
+        // Sélection des éléments une fois le header inséré
         const hamburger = document.getElementById("hamburger");
         const navbar = document.querySelector(".navbar");
 
@@ -36,6 +33,9 @@ window.onload = async () => {
             return;
         }
 
+        console.log("✅ Script chargé après insertion du header !");
+
+        // Événement de clic pour le menu hamburger
         hamburger.addEventListener("click", () => {
             hamburger.classList.toggle("active");
             hamburger.classList.toggle("inactive");
@@ -47,7 +47,9 @@ window.onload = async () => {
     } catch (error) {
         console.error("❌ Erreur lors du chargement du header :", error);
     } finally {
-        // Une fois le header chargé, rendre la page visible
-        document.body.classList.add("loaded");
+        // Cache l'indicateur de chargement une fois le header chargé
+        if (loadingIndicator) {
+            loadingIndicator.style.display = "none"; // Masquer le message de chargement
+        }
     }
-};
+});
