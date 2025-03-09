@@ -1,4 +1,6 @@
 window.onload = async () => {
+    console.log("🌍 Chargement du site...");
+    
     const headerElement = document.querySelector("header");
 
     if (!headerElement) {
@@ -7,6 +9,9 @@ window.onload = async () => {
     }
 
     try {
+        // Affichage d'un message temporaire pendant le chargement
+        headerElement.innerHTML = "<p>Chargement du header...</p>";
+
         const response = await fetch("./components/header.html");
         if (!response.ok) {
             throw new Error("Erreur lors du chargement du header");
@@ -16,12 +21,13 @@ window.onload = async () => {
 
         console.log("✅ Header chargé avec succès !");
         
-        // Charger theme.js après le header
+        // Charger theme.js après l'ajout du header
         const themeScript = document.createElement('script');
         themeScript.src = './assets/js/theme.js';
         themeScript.defer = true;
         document.body.appendChild(themeScript);
 
+        // Sélection des éléments du menu une fois le header chargé
         const hamburger = document.getElementById("hamburger");
         const navbar = document.querySelector(".navbar");
 
@@ -40,5 +46,8 @@ window.onload = async () => {
 
     } catch (error) {
         console.error("❌ Erreur lors du chargement du header :", error);
+    } finally {
+        // Une fois le header chargé, rendre la page visible
+        document.body.classList.add("loaded");
     }
 };
