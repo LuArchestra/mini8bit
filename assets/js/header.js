@@ -1,15 +1,15 @@
+const basePath = "/mini8bit"; // Mettre le chemin du projet sur GitHub Pages
+
 document.addEventListener("DOMContentLoaded", async () => {
     const headerElement = document.querySelector("header");
 
-    // Vérifie si l'élément header existe
     if (!headerElement) {
-        console.error("⚠️ L'élément <header> n'existe pas dans index.html !");
+        console.error("⚠️ L'élément <header> est introuvable dans index.html !");
         return;
     }
 
     try {
-        // Chargement du header avec await
-        const response = await fetch("./components/header.html");
+        const response = await fetch(`${basePath}/components/header.html`);
         if (!response.ok) {
             throw new Error("Erreur lors du chargement du header");
         }
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         console.log("✅ Header chargé avec succès !");
 
-        // Sélection des éléments une fois le header inséré
+        // Sélection des éléments après le chargement
         const hamburger = document.getElementById("hamburger");
         const navbar = document.querySelector(".navbar");
 
@@ -27,4 +27,18 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        console.log("✅ Script chargé après ins
+        console.log("✅ Scripts actifs après insertion du header !");
+
+        // Gestion du menu hamburger
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            hamburger.classList.toggle("inactive");
+
+            navbar.classList.toggle("active");
+            navbar.classList.toggle("hidden");
+        });
+
+    } catch (error) {
+        console.error("❌ Erreur lors du chargement du header :", error);
+    }
+});
