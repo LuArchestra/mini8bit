@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Charger le script du thème après l'insertion du header
             const themeScript = document.createElement("script");
-            themeScript.src = "/assets/js/theme.js";
+            themeScript.src = "./assets/js/theme.js";
             themeScript.defer = true;
             document.body.appendChild(themeScript);
             console.log("🎨 Script de thème chargé !");
