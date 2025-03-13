@@ -1,55 +1,47 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
     const headerElement = document.querySelector("header");
-    const loadingIndicator = document.getElementById("loading-indicator");
 
-    // Vérifie si l'élément header existe
     if (!headerElement) {
         console.error("⚠️ L'élément <header> n'existe pas dans index.html !");
         return;
     }
 
-    // Affiche l'indicateur de chargement
-    if (loadingIndicator) {
-        loadingIndicator.style.display = "block"; // Afficher le message de chargement
-    }
+    fetch("/components/header.html")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP : ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            headerElement.innerHTML = data;
+            console.log("✅ Header inséré !");
 
-    try {
-        // Chargement du header avec await
-        const response = await fetch("./components/header.html");
-        if (!response.ok) {
-            throw new Error("Erreur lors du chargement du header");
-        }
-        const html = await response.text();
-        headerElement.innerHTML = html;
+            // Charger le script du thème après l'insertion du header
+            const themeScript = document.createElement("script");
+            themeScript.src = "/assets/js/theme.js";
+            themeScript.defer = true;
+            document.body.appendChild(themeScript);
+            console.log("🎨 Script de thème chargé !");
 
-        console.log("✅ Header chargé avec succès !");
+            // Initialisation du menu hamburger
+            initHamburgerMenu();
+        })
+        .catch(error => console.error("🚨 Erreur lors du chargement du header :", error));
 
-        // Sélection des éléments une fois le header inséré
+    function initHamburgerMenu() {
         const hamburger = document.getElementById("hamburger");
         const navbar = document.querySelector(".navbar");
 
         if (!hamburger || !navbar) {
-            console.error("⚠️ Problème avec l'élément hamburger ou navbar dans le header");
+            console.error("⚠️ Élément hamburger ou navbar introuvable après l'insertion du header.");
             return;
         }
 
-        console.log("✅ Script chargé après insertion du header !");
-
-        // Événement de clic pour le menu hamburger
         hamburger.addEventListener("click", () => {
             hamburger.classList.toggle("active");
-            hamburger.classList.toggle("inactive");
-
             navbar.classList.toggle("active");
             navbar.classList.toggle("hidden");
         });
-
-    } catch (error) {
-        console.error("❌ Erreur lors du chargement du header :", error);
-    } finally {
-        // Cache l'indicateur de chargement une fois le header chargé
-        if (loadingIndicator) {
-            loadingIndicator.style.display = "none"; // Masquer le message de chargement
-        }
     }
 });
