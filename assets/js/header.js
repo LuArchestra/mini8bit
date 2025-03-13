@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    fetch("/components/header.html")
+    fetch("./components/header.html")
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Erreur HTTP : ${response.status}`);
